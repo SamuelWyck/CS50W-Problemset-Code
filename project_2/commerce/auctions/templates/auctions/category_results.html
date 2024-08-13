@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+{% load humanize %}
+
+{% block body %}
+<h2>{{ category }}</h2>
+{% for listing in listings %}
+<div class="container-fluid" style="margin: 40px; border: 1px solid lightgrey;">
+    <div class="row align-items-start">
+        {% if listing.image and listing.image != "" %}
+        <div class="col-md-2">
+        <a href="{% url 'listing_page' listing.id %}"><img src="{{ listing.image.url }}" class="img-thumbnail img-fluid"></a>
+        </div>
+        {% else %}
+            <div class="col-md-2"><a href="{% url 'listing_page' listing.id %}"><img src="{{ MEDIA_URL }}no_image.png" class="img-thumbnail img-fluid"></a></div>
+        {% endif %}
+        <div class="col-md-3 align-self-center">
+        <a href="{% url 'listing_page' listing.id %}"><ul>
+            <li style="margin: 20px;">Listing: {{ listing.name }}</li>
+            <li style="margin: 20px;">Price: ${{ listing.current_price|intcomma }}</li>
+            <li style="margin: 20px;">Seller: {{ listing.seller.username }}</li>
+        </ul></a>
+        </div>
+    </div>
+</div>
+{% empty %}
+    <h1>No Active Listings</h1>
+{% endfor %}
+{% endblock %}

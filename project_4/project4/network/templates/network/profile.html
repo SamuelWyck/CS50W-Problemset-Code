@@ -1,0 +1,87 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+    <input type="hidden" value="{{ bool }}" id="logged-in">
+    {% if user.id != profile_user.id %}
+        <input type="hidden" value="false" id="active-users-profile">
+    {% else %}
+        <input type="hidden" value="true" id="active-users-profile">
+    {% endif %}
+    <div class="container-fluid fixed-top" style="padding: 20px; border-bottom: 1px solid lightgray; background-color: white; margin-top: 2.5%; cursor: default;">
+        <div class="row">
+            <div class="col">
+                <h1>{{ profile_user.username }}</h1>
+            </div>
+            <div class="col-1 offset-5 align-self-center" id="follow-user-btn-div" data-user-id="{{ profile_user.id }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span style="margin-left: 1%;" id="follower-count">{{ profile_user.number_followers }}</span> Followers
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col">
+                <span style="margin-left: 1%;"> Following {{ profile_user.number_following }} users</span>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="padding: 40px; margin-top: 10%;" id="posts-div">
+        <h2 style="cursor: default;">Posts from user: {{ profile_user.username }}</h2>
+        {% for post in user_posts %}
+        <div class="container-fluid" style="margin-bottom: 20px; border: 1px solid lightgray; border-radius: 5px; cursor: default;">
+            <div class="row" style="margin-top: 5px">
+                <div class="col" style="font-weight: bold; font-size: large;">
+                    {{ post.user }}
+                </div>
+                <div class="col d-flex justify-content-end" style="color: gray;">
+                    {{ post.timestamp }}
+                </div>
+            </div>
+            {% if request.user.id == post.user.id %}
+                <div class="row">
+                    <div class="col">
+                        <span class="edit-post" style="cursor: pointer; color: rgb(0, 89, 255);" data-post-id="{{ post.id }}">Edit</span>
+                    </div>  
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col d-flex justify-content-center text-wrap text-break" style="margin-left: 5%; margin-right: 5%;" id="post-{{ post.id }}-content-div">
+                    <div id="post-{{ post.id }}-content">{{ post.content }}</div>
+                    <textarea maxlength="400" class="form-control" style="display: none;" id="post-{{ post.id }}-textarea">{{ post.content }}</textarea>
+                </div>
+                <div class="col-md-1 align-self-end" style="display: none;" id="post-{{ post.id }}-save-btn-div">
+                    <button class="btn btn-primary" id="post-{{ post.id }}-save-btn">Save</button>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 10px; margin-top: 5px;">
+                {% if user.is_authenticated %}
+                <div style="margin-left: 1%;" class="like-btn-div" data-post-id="{{ post.id }}">
+                </div>
+                {% endif %}
+                <div class="col align-self-center" id="post-{{ post.id }}-likes">
+                    {{ post.likes }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h1>No Posts</h1>
+        {% endfor %}
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center" style="margin-left: 2%; margin-right: 2%;">
+            {% if posts.has_previous %}
+            <li class="page-item"><a href="/load_profile?page={{ posts.previous_page_number }}" class="page-link">Previous</a></li>
+            {% endif %}
+            {% if posts.has_next %}
+            <li class="page-item"><a href="/load_profile?page={{ posts.next_page_number }}" class="page-link">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

@@ -1,0 +1,120 @@
+.header {
+    border-bottom: 1px solid gray;
+    padding: 20px;
+}
+
+.header a {
+    text-decoration: none;
+    padding: 10px;
+    color: gray;
+    font-family: Arial;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+.header table {
+    padding-left: 86%;
+}
+
+.banner {
+    text-align: center;
+    margin-top: 10%; 
+}
+
+.banner font {
+    font-size: 70px;
+    font-family: Arial;
+    font-weight: bold;  
+}
+
+.search-bar {
+    margin: auto;
+    width: 450px;
+    padding-top: 40px;
+}
+
+.search-bar input {
+    border: 3px solid lightblue;
+    border-radius: 30px;
+    width: 450px;
+    height: 40px;
+    font-size: 20px;
+    padding-left: 15px;
+}
+
+.buttons {
+    margin: auto;
+    width: 300px;
+    margin-top: 35px;
+}
+
+.buttons td {
+    padding-right: 10px;
+}
+
+.buttons input {
+    border: 0px;
+    border-radius: 30px;
+    width: 150px;
+    height: 40px;
+    font-weight: bold;
+}
+
+.buttons input:hover {
+    border: 1px solid gray;
+}
+
+.image_btn {
+    margin-left: 86px;
+}
+
+.A_S {
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    margin-left: 20px;
+}
+
+.sm_banner {
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.adv_search thead td {
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    
+}
+
+.adv_search tbody td {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding-left: 40px;
+    padding-top: 20px;
+}
+
+.adv_search input {
+    width: 600px;
+    height: 25px;
+}
+
+.adv_button {
+    margin-left: 618%;
+    width: 120px;
+    height: 30px;
+    margin-top: 15px;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background-color: rgb(95, 140, 255);
+    color: white;
+    border: 0px;
+}

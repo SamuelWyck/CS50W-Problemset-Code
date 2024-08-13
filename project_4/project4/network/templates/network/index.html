@@ -1,0 +1,93 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
+
+{% block nav_link %}
+{% if user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link" style="cursor: pointer; display: none;" id="show-new-post-form">New Post</a>
+</li>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+    {% if user.is_authenticated %}
+        <div class="container-fluid fixed-top" style="border-bottom: 1px solid lightgray; margin-top: 2.7%; background-color: white;" id="new-post-form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row" style="padding: 20px; padding-left: 10px; padding-top: 10px;">
+                <div class="col">
+                    <label for="new-post-content" style="font-weight: bold; font-size: large;">New Post</label>
+                    <textarea maxlength="400" id="new-post-content" class="form-control" placeholder="Character limit: 400" aria-describedby="error-message"></textarea>
+                    <small id="error-message" style="display: none;" class="form-text"></small>
+                    <input type="hidden" value="{{ request.user.id }}" id="new-post-user">
+                </div>
+                <div class="col-md-1 align-self-end">
+                    <input class="btn btn-primary btn-md" id="submit-new-post" value="Post" type="submit">
+                </div>
+                <div class="col"></div>
+                <div class="col-md-1 align-self-start d-flex justify-content-end">
+                    <button class="btn btn-outline-secondary" id="hide-new-post-form">Hide</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    <input type="hidden" value="{{ bool }}" id="logged-in">
+    <div class="container-fluid" style="padding: 40px; margin-top: 9%;" id="posts-div">
+        <h2 style="cursor: default;">{{ category }}</h2>
+        {% for post in posts %}
+        <div class="container-fluid" style="margin-bottom: 20px; border: 1px solid lightgray; border-radius: 5px; cursor: default;">
+            <div class="row" style="margin-top: 5px">
+                <div class="col" style="font-weight: bold; font-size: large;">
+                    <span class="profile-link" style="cursor: pointer;" data-user-id="{{ post.user.id }}">{{ post.user }}</span>
+                </div>
+                <div class="col d-flex justify-content-end" style="color: gray;">
+                    {{ post.timestamp }}
+                </div>
+            </div>
+            {% if request.user.id == post.user.id %}
+                <div class="row">
+                    <div class="col">
+                        <span class="edit-post" style="cursor: pointer; color: rgb(0, 89, 255);" data-post-id="{{ post.id }}">Edit</span>
+                    </div>  
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col d-flex justify-content-center text-wrap text-break" style="margin-left: 5%; margin-right: 5%;" id="post-{{ post.id }}-content-div">
+                    <div id="post-{{ post.id }}-content">{{ post.content }}</div>
+                    <textarea maxlength="400" class="form-control" style="display: none;" id="post-{{ post.id }}-textarea">{{ post.content }}</textarea>
+                </div>
+                <div class="col-md-1 align-self-end" style="display: none;" id="post-{{ post.id }}-save-btn-div">
+                    <button class="btn btn-primary" id="post-{{ post.id }}-save-btn">Save</button>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 10px; margin-top: 5px;">
+                {% if user.is_authenticated %}
+                <div style="margin-left: 1%;" class="like-btn-div" data-post-id="{{ post.id }}">
+                </div>
+                {% endif %}
+                <div class="col align-self-center" id="post-{{ post.id }}-likes">
+                    {{ post.likes }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h1>No Posts</h1>
+        {% endfor %}
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center" style="margin-left: 2%; margin-right: 2%;">
+            {% if posts.has_previous %}
+            <li class="page-item"><a href="?page={{ posts.previous_page_number }}" class="page-link">Previous</a></li>
+            {% endif %}
+            {% if posts.has_next %}
+            <li class="page-item"><a href="?page={{ posts.next_page_number }}" class="page-link">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
