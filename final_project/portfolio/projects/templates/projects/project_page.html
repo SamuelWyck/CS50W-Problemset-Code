@@ -1,0 +1,25 @@
+{% extends "projects/layout.html" %}
+{% load static %}
+
+{% block title %} {{ project.title }}{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; cursor: default;" class="d-flex justify-content-center">
+        <strong style="font-size: 72px; color: rgb(15, 54, 183); text-shadow: 5px 5px 10px gray;">{{ project.title }}</strong>
+    </div>
+    <div class="row d-flex justify-content-center">
+    <div class="embed-responsive embed-responsive-16by9 col-7" style="margin-top: 40px; padding: 0px;">
+        <iframe class="embed-responsive-item" src="{{ project.video }}?rel=0" allowfullscreen></iframe>
+    </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+    <div class="col-7" style="font-size: 22px; margin-top: 70px; margin-bottom: 100px; padding: 20px; border-radius: 5px; background-color: whitesmoke; box-shadow: 5px 5px 20px 10px gray; cursor: default;">
+        <div><strong>Languages Used: </strong>{{ project.languages_used }}</div>
+        <div><strong>See Code: </strong><a href="{{ project.code_link }}" target="_blank" rel="noreferrer noopener" class="text-wrap text-break">{{ project.code_link }}</a></div>
+        <div style="padding: 21px;">
+            {{ project.description }}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

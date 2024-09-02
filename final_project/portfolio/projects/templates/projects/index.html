@@ -1,0 +1,22 @@
+{% extends "projects/layout.html" %}
+{% load static %}
+
+{% block title %} My Projects{% endblock %}
+{% block script %}<script src="{% static 'projects/index.js' %}"></script>{% endblock %}
+
+{% block body %}
+<div class="container-md d-flex justify-content-center" style="margin-bottom: 100px;">
+    <div class="row d-flex justify-content-center">
+{% for project in projects %}
+    <div class="col-4" style="margin: 95px; margin-bottom: 95px;" data-project-id="{{ project.id }}">
+    <div style="background-color: whitesmoke; box-shadow: 5px 5px 20px 10px gray; cursor: pointer;">
+        <img src="{{ project.thumbnail }}" style="width: 100%;">
+        <div class="text-wrap text-break" style="text-align: center; padding-top: 20px; padding-bottom: 20px;"><strong style="font-size: 27px;">{{ project.title }}</strong></div>
+        <div class="text-wrap text-break" style="text-align: center; padding-bottom: 8px;"><strong style="font-size: 22px;">Languages Used:</strong></div>
+        <div class="text-wrap text-break" style="text-align: center; padding-bottom: 40px;"><strong style="font-size: 20px;">{{ project.languages_used }}</strong></div>
+    </div>
+    </div>
+{% endfor %}
+    </div>
+</div>
+{% endblock %}

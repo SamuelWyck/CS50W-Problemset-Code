@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>SamuelWyck:{% block title %}{% endblock %}</title>
+        {% block script %}{% endblock %}
+    </head>
+    <body style="background-color: lightgray;">
+        <div class="container-fluid d-flex justify-content-center" style="cursor: default; background-color: rgb(10, 76, 189); background-image: url('https://img.freepik.com/premium-vector/abstract-modern-blue-gradient-geometric-pattern-background-website-banner-graphic-design_120819-591.jpg'); background-size: 100% 100%;">
+            <span id="title-span" style="padding-top: 32px; padding-bottom: 32px; font-size: 60px; font-weight: bold; color: rgb(251, 237, 210); text-shadow: 6px 6px 10px black;">Samuel Wycklendt</span>
+        </div>
+        
+        <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: navy; box-shadow: 0px 10px 20px gray; font-size: 17px;">
+            <a class="navbar-brand" target="_blank" rel="noreferrer noopener" href="https://www.linkedin.com/in/swycklendt"><strong style="text-shadow: 2px 2px 4px black; color: rgb(251, 237, 210); font-size: 24px;">My LinkedIn</strong></a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" id="project-link"><a class="nav-link" href="{% url 'index' %}">My Projects</a></li>
+                <li class="nav-item" id="courses-link"><a class="nav-link" href="{% url 'courses' %}">My Courses</a></li>
+                <li class="nav-item" id="github-link"><a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://www.github.com/SamuelWyck">My Github</a></li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid" style="padding-top: 50px;">
+        {% block body %}
+        {% endblock %}
+        </div>
+    </body>
+</html>

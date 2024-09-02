@@ -1,0 +1,29 @@
+{% extends "projects/layout.html" %}
+{% load static %}
+
+{% block title %} My Courses{% endblock %}
+{% block script %}<script src="{% static 'projects/courses.js' %}"></script>{% endblock %}
+
+{% block body %}  
+    <div style="margin-top: 60px;">
+        {% for course in courses %}
+        <div class="container-md" style="font-size: 22px; margin-bottom: 200px; padding: 30px; border-radius: 5px; background-color: whitesmoke; box-shadow: 5px 5px 20px 10px gray; cursor: default;">
+            <div style="text-align: center; margin-bottom: 20px;"><strong style="font-size: 25px;">{{ course.title }}</strong></div>
+            <div class="row">
+                <div class="col-2 align-self-center">
+                    <img src="{{ course.thumbnail }}" class="img-fluid">
+                </div>
+                <div class="col">
+                    <div><strong>Course Description:</strong></div>{{ course.description }}
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <strong>See Code:</strong> <a target="_blank" rel="noreferrer noopener" href="{{ course.code_link }}" class="text-wrap text-break">{{ course.code_link }}</a>
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <strong>Course Site:</strong> <a target="_blank" rel="noreferrer noopener" href="{{ course.course_link }}" class="text-wrap text-break">{{ course.course_link }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
